@@ -4,32 +4,16 @@ import api from '../api/axios';
 import useAuthStore from '../store/authStore';
 import "../styles/Login.css";
 
-const DEMO_ACCOUNTS = {
-  'Fleet Manager': { email: 'fleetmanager@transitops.com', password: 'Test@1234' },
-  'Dispatcher': { email: 'dispatcher@transitops.com', password: 'Test@1234' },
-  'Safety Officer': { email: 'safety@transitops.com', password: 'Test@1234' },
-  'Financial Analyst': { email: 'finance@transitops.com', password: 'Test@1234' },
-};
-
-const ROLES = Object.keys(DEMO_ACCOUNTS);
-
 export default function Login() {
-  const [form, setForm] = useState({ email: '', password: '', role: 'Dispatcher' });
-  const [fieldErrors, setFieldErrors] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ email: '', password: '', role: '' });
+  const [fieldErrors, setFieldErrors] = useState({ email: '', password: '', role: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const login = useAuthStore((s) => s.login);
   const navigate = useNavigate();
 
-  const handleRoleChange = (e) => {
-    const role = e.target.value;
-    const demo = DEMO_ACCOUNTS[role];
-    setForm({ role, email: demo.email, password: demo.password });
-    setFieldErrors({ email: '', password: '' });
-  };
-
   const validate = () => {
-    const errors = { email: '', password: '' };
+    const errors = { email: '', password: '', role: '' };
     let isValid = true;
 
     if (!form.email.trim()) {
@@ -45,6 +29,11 @@ export default function Login() {
       isValid = false;
     }
 
+    if (!form.role.trim()) {
+      errors.role = 'Role is required';
+      isValid = false;
+    }
+
     setFieldErrors(errors);
     return isValid;
   };
@@ -57,7 +46,7 @@ export default function Login() {
 
     setLoading(true);
     try {
-      const { data } = await api.post('/auth/login', { email: form.email, password: form.password });
+      const { data } = await api.post('/auth/login', { email: form.email, password: form.password, role: form.role });
       login(data.user, data.token);
       navigate('/dashboard');
     } catch (err) {
@@ -74,12 +63,7 @@ export default function Login() {
           <h1>TransitOps</h1>
           <p className="tagline">Smart Transport Operations Platform</p>
         </div>
-        <ul>
-          {ROLES.map((role) => (
-            <li key={role}>● {role}</li>
-          ))}
-        </ul>
-        <div style={{ fontSize: 12, color: '#64748b' }}>TRANSITOPS © 2026 • RBAC System</div>
+        <div style={{ fontSize: 12, color: '#64748b' }}>TRANSITOPS © 2026 • Secure Access</div>
       </div>
 
       <div className="login-right">
@@ -88,13 +72,6 @@ export default function Login() {
           <p className="sub">Enter your credentials to continue</p>
 
           <form onSubmit={handleSubmit} noValidate>
-            <label>Quick demo login</label>
-            <select value={form.role} onChange={handleRoleChange}>
-              {ROLES.map((role) => (
-                <option key={role} value={role}>{role}</option>
-              ))}
-            </select>
-
             <label>Email</label>
             <input
               type="email"
@@ -118,6 +95,23 @@ export default function Login() {
               }}
             />
             {fieldErrors.password && <p className="error-text">{fieldErrors.password}</p>}
+
+            <label>Role</label>
+            <select
+              className={fieldErrors.role ? 'input-error' : ''}
+              value={form.role}
+              onChange={(e) => {
+                setForm({ ...form, role: e.target.value });
+                if (fieldErrors.role) setFieldErrors({ ...fieldErrors, role: '' });
+              }}
+            >
+              <option value="">Select a role</option>
+              <option value="Fleet Manager">Fleet Manager</option>
+              <option value="Dispatcher">Dispatcher</option>
+              <option value="Safety Officer">Safety Officer</option>
+              <option value="Financial Analyst">Financial Analyst</option>
+            </select>
+            {fieldErrors.role && <p className="error-text">{fieldErrors.role}</p>}
 
             {error && <p className="form-error-banner">{error}</p>}
 
