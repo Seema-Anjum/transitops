@@ -8,6 +8,8 @@ const { sequelize } = require('./models');
 const tripRoutes = require('./routes/tripRoutes');
 const maintenanceRoutes = require('./routes/maintenanceRoutes');
 const fuelExpenseRoutes = require('./routes/fuelExpenseRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
+const reportRoutes = require('./routes/reportRoutes');
 
 const app = express();
 
@@ -21,7 +23,9 @@ app.use('/api/drivers', driverRoutes);
 app.use('/api/trips', tripRoutes);
 app.use('/api/maintenance', maintenanceRoutes);
 app.use("/api", fuelExpenseRoutes);
-    
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/reports", reportRoutes);
+
 // Test database connection
 app.get("/", (req, res) => res.send('TransitOps API running'));
 
