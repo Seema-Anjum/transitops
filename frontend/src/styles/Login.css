@@ -1,0 +1,131 @@
+* { box-sizing: border-box; }
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.login-left {
+  width: 42%;
+  background: #1e222b;
+  color: white;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-left h1 {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.login-left p.tagline {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.login-left ul {
+  list-style: none;
+  margin-top: 16px;
+  padding: 0;
+}
+
+.login-left li {
+  padding: 6px 0;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+.login-right {
+  width: 58%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+}
+
+.login-card {
+  width: 380px;
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.login-card h2 {
+  font-size: 20px;
+  margin-bottom: 6px;
+  color: #1f2937;
+}
+
+.login-card p.sub {
+  color: #64748b;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.login-card label {
+  display: block;
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 6px;
+  margin-top: 14px;
+  font-weight: 600;
+}
+
+.login-card input,
+.login-card select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.login-card input.input-error {
+  border-color: #dc2626;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  background: #ffb800;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.login-card button:hover {
+  background: #e6a600;
+}
+
+.login-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-text {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.form-error-banner {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .login-wrapper { flex-direction: column; }
+  .login-left, .login-right { width: 100%; }
+}

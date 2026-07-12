@@ -1,111 +1,31 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+.app-shell { display: flex; min-height: 100vh; }
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+.sidebar { width: 220px; background: #1a1d24; color: #cbd5e1; display: flex; flex-direction: column; flex-shrink: 0; }
+.sidebar-logo { padding: 20px; font-size: 18px; font-weight: 700; color: white; border-bottom: 1px solid #2a2e38; }
+.sidebar-nav { flex: 1; padding: 12px 0; }
+.sidebar-link { display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 14px; color: #94a3b8; text-decoration: none; cursor: pointer; border-left: 3px solid transparent; }
+.sidebar-link:hover { background: #22262f; color: white; }
+.sidebar-link.active { background: #22262f; color: white; border-left: 3px solid #ffb800; }
+.sidebar-footer { padding: 16px 20px; font-size: 11px; color: #64748b; border-top: 1px solid #2a2e38; }
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.topbar { display: flex; align-items: center; gap: 16px; padding: 14px 24px; background: white; border-bottom: 1px solid #e5e7eb; }
+.topbar input { flex: 1; max-width: 320px; padding: 8px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; }
+.topbar .user-block { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.topbar .user-name { font-size: 13px; font-weight: 600; }
+.topbar .user-role { font-size: 11px; color: #64748b; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: #ffb800; color: #1a1d24; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
+.topbar button.logout { background: none; border: 1px solid #ddd; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; }
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
+.filters-bar { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; }
+.filters-bar select, .filters-bar input { padding: 7px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-body {
-  margin: 0;
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
-}
+.kanban { display: flex; gap: 14px; margin-top: 16px; overflow-x: auto; }
+.kanban-col { background: #f1f5f9; border-radius: 10px; padding: 12px; min-width: 260px; flex: 1; }
+.kanban-col h4 { font-size: 12px; text-transform: uppercase; color: #64748b; margin-bottom: 10px; }
+.kanban-card { background: white; border-radius: 8px; padding: 12px; margin-bottom: 10px; border: 1px solid #e5e7eb; font-size: 13px; }
+.kanban-card .trip-id { font-weight: 700; font-size: 12px; color: #1a1d24; }
+.kanban-card .route { font-size: 12px; color: #475569; margin: 4px 0; }
+.kanban-card .meta { font-size: 11px; color: #94a3b8; }
+.kanban-card .actions { margin-top: 8px; display: flex; gap: 6px; }
+.kanban-card .actions button { font-size: 11px; padding: 4px 8px; }
